@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     "corsheaders",
     "rest_framework",
     "VBS",
-    "Accounts"
+    "Accounts",
+    "Chilren_Ministry"
 ]
 
 MIDDLEWARE = [
