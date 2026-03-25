@@ -29,4 +29,26 @@ class Guardian(models.Model):
         return self.full_name
 
 class Child(model.Model):
-    
+    GENDER_CHOICES = (
+        ("male", "Male"),
+        ("female", "Female"),
+    )
+
+    guardian = models.ForeignKey(
+        Guardian, on_delete=models.CASCADE, related_name="children"
+    )
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    date_of_birth = models.DateField()
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
+    school_name = models.CharField(max_length=255, blank=True, null=True)
+    allergies = models.TextField(blank=True, null=True)
+    medical_notes = models.TextField(blank=True, null=True)
+    special_needs = models.TextField(blank=True, null=True)
+    photo = models.ImageField(upload_to="children_photos/", blank=True, null=True)
+    is_first_time_attendee = models.BooleanField(default=True)
+    notes = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
