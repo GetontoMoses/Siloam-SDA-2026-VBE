@@ -16,4 +16,14 @@ class User(AbstractUser):
         return self.full_name or self.username
 
 class Guardian(models.Model):
-    
+    full_name = models.CharField(max_length=255)
+    phone_number = models.CharField(max_length=20)
+    email = models.EmailField(blank=True, null=True)
+    relationship_to_child = models.CharField(max_length=100, blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
+    home_church = models.CharField(max_length=255, blank=True, null=True)
+    emergency_contact_name = models.CharField(max_length=255, blank=True, null=True)
+    emergency_contact_phone = models.CharField(max_length=20, blank=True, null=True)
+
+    def __str__(self):
+        return self.full_name
