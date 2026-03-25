@@ -14,3 +14,6 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.full_name or self.username
+
+class Guardian(models.Model):
+    
