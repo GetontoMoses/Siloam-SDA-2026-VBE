@@ -70,3 +70,5 @@ class VBSProgram(models.Model):
 
     def __str__(self):
         return self.title
+
+class Registration(models.Model):
