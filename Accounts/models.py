@@ -54,3 +54,19 @@ class Child(model.Model):
         return f"{self.first_name} {self.last_name}"
 
 class VBSProgram(models.Model):
+    STATUS_CHOICES = (
+        ("draft", "Draft"),
+        ("active", "Active"),
+        ("closed", "Closed"),
+    )
+
+    title = models.CharField(max_length=255)
+    theme = models.CharField(max_length=255)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    venue = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="draft")
+
+    def __str__(self):
+        return self.title
