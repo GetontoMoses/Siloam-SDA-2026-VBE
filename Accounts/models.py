@@ -95,3 +95,20 @@ class Registration(models.Model):
         return f"{self.child} - {self.program}"
 
 class AgeGroup(models.Model):
+    program = models.ForeignKey(
+        VBSProgram, on_delete=models.CASCADE, related_name="age_groups"
+    )
+    name = models.CharField(max_length=100)
+    min_age = models.PositiveIntegerField()
+    max_age = models.PositiveIntegerField()
+    room_name = models.CharField(max_length=100, blank=True, null=True)
+    teacher = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="teaching_groups",
+    )
+
+    def __str__(self):
+        return f"{self.name} - {self.program.title}"
