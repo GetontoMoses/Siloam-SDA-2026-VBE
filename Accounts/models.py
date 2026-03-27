@@ -115,3 +115,25 @@ class AgeGroup(models.Model):
         return f"{self.name} - {self.program.title}"
 
 class Attendance(models.Model):
+    STATUS_CHOICES = (
+        ("present", "Present"),
+        ("absent", "Absent"),
+        ("late", "Late"),
+    )
+
+    registration = models.ForeignKey(
+        Registration, on_delete=models.CASCADE, related_name="attendance_records"
+    )
+    date = models.DateField()
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="present")
+    check_in_time = models.TimeField(blank=True, null=True)
+    check_out_time = models.TimeField(blank=True, null=True)
+    marked_by = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, blank=True
+    )
+
+    class Meta:
+        unique_together = ("registration", "date")
+
+    def __str__(self):
+        return f"{self.registration.child} - {self.date} - {self.status}"
