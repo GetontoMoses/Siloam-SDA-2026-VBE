@@ -150,3 +150,6 @@ class Lesson(models.Model):
 
     def __str__(self):
         return f"{self.title} - {self.date}"
+    
+class Activity(models.Model):
+
