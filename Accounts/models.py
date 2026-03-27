@@ -87,6 +87,7 @@ class Registration(models.Model):
     registration_date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
     pickup_notes = models.TextField(blank=True, null=True)
+    
 
     class Meta:
         unique_together = ("child", "program")
@@ -112,3 +113,5 @@ class AgeGroup(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.program.title}"
+
+class Attendance(models.Model):
