@@ -137,3 +137,5 @@ class Attendance(models.Model):
 
     def __str__(self):
         return f"{self.registration.child} - {self.date} - {self.status}"
+
+class Lesson(models.Model):
