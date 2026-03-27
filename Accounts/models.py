@@ -150,6 +150,18 @@ class Lesson(models.Model):
 
     def __str__(self):
         return f"{self.title} - {self.date}"
-    
-class Activity(models.Model):
 
+class Activity(models.Model):
+    program = models.ForeignKey(
+        VBSProgram, on_delete=models.CASCADE, related_name="activities"
+    )
+    name = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+    leader = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    location = models.CharField(max_length=255, blank=True, null=True)
+    day = models.DateField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+
+    def __str__(self):
+        return f"{self.name} - {self.day}"
