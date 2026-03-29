@@ -38,8 +38,12 @@ class Child(models.Model):
     notes = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
+    @property
+    def full_name(self):
         return f"{self.first_name} {self.last_name}"
+
+    def __str__(self):
+        return self.full_name
 
 
 class VBSProgram(models.Model):
