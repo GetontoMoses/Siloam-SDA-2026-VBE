@@ -15,7 +15,7 @@ class Guardian(models.Model):
         return self.full_name
 
 
-class Child(model.Model):
+class Child(models.Model):
     GENDER_CHOICES = (
         ("male", "Male"),
         ("female", "Female"),
