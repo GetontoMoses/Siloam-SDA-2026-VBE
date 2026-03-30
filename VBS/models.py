@@ -61,7 +61,11 @@ class VBSProgram(models.Model):
     description = models.TextField(blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="draft")
     created_at = models.DateTimeField(auto_now_add=True)
-    
+
+    def clean(self):
+        if self.end_date < self.start_date:
+            raise ValidationError("End date cannot be before start date.")
+
     def __str__(self):
         return self.title
 
