@@ -162,7 +162,12 @@ class Attendance(models.Model):
     )
 
     class Meta:
-        unique_together = ("registration", "date")
+        constraints = [
+            models.UniqueConstraint(
+                fields=["registration", "date"],
+                name="unique_attendance_per_registration_date",
+            )
+        ]
 
     def __str__(self):
         return f"{self.registration.child} - {self.date} - {self.status}"
