@@ -154,7 +154,11 @@ class Attendance(models.Model):
     check_in_time = models.TimeField(blank=True, null=True)
     check_out_time = models.TimeField(blank=True, null=True)
     marked_by = models.ForeignKey(
-        User, on_delete=models.SET_NULL, null=True, blank=True
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="marked_attendance_records",
     )
 
     class Meta:
