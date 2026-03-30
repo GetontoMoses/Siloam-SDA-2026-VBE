@@ -71,30 +71,6 @@ class VBSProgram(models.Model):
         return self.title
 
 
-class Registration(models.Model):
-    STATUS_CHOICES = (
-        ("pending", "Pending"),
-        ("approved", "Approved"),
-        ("cancelled", "Cancelled"),
-    )
-
-    child = models.ForeignKey(
-        Child, on_delete=models.CASCADE, related_name="registrations"
-    )
-    program = models.ForeignKey(
-        VBSProgram, on_delete=models.CASCADE, related_name="registrations"
-    )
-    registration_date = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
-    pickup_notes = models.TextField(blank=True, null=True)
-
-    class Meta:
-        unique_together = ("child", "program")
-
-    def __str__(self):
-        return f"{self.child} - {self.program}"
-
-
 class AgeGroup(models.Model):
     program = models.ForeignKey(
         VBSProgram, on_delete=models.CASCADE, related_name="age_groups"
@@ -113,6 +89,42 @@ class AgeGroup(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.program.title}"
+
+
+class Registration(models.Model):
+    STATUS_CHOICES = (
+        ("pending", "Pending"),
+        ("approved", "Approved"),
+        ("cancelled", "Cancelled"),
+    )
+
+    child = models.ForeignKey(
+        Child, on_delete=models.CASCADE, related_name="registrations"
+    )
+    program = models.ForeignKey(
+        VBSProgram, on_delete=models.CASCADE, related_name="registrations"
+    )
+    group = models.ForeignKey(
+        AgeGroup,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="registrations",
+    )
+    registration_date = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
+    pickup_notes = models.TextField(blank=True, null=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["child", "program"],
+                name="unique_child_program_registration",
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.child} - {self.program}"
 
 
 class Attendance(models.Model):
