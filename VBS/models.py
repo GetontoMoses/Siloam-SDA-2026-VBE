@@ -80,16 +80,27 @@ class AgeGroup(models.Model):
     max_age = models.PositiveIntegerField()
     room_name = models.CharField(max_length=100, blank=True, null=True)
     teacher = models.ForeignKey(
-        User,
+        settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name="teaching_groups",
     )
+    assistant_teacher = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="assisting_groups",
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def clean(self):
+        if self.max_age < self.min_age:
+            raise ValidationError("Max age cannot be less than min age.")
 
     def __str__(self):
         return f"{self.name} - {self.program.title}"
-
 
 class Registration(models.Model):
     STATUS_CHOICES = (
