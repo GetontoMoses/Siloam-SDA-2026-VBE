@@ -188,3 +188,29 @@ class Lesson(models.Model):
 
 
 class Activity(models.Model):
+    program = models.ForeignKey(
+        VBSProgram,
+        on_delete=models.CASCADE,
+        related_name="activities",
+    )
+    name = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+    leader = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="led_activities",
+    )
+    location = models.CharField(max_length=255, blank=True, null=True)
+    day = models.DateField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def clean(self):
+        if self.end_time <= self.start_time:
+            raise ValidationError("End time must be after start time.")
+
+    def __str__(self):
+        return f"{self.name} - {self.day}"
