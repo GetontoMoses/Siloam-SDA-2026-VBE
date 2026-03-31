@@ -138,7 +138,6 @@ class Registration(models.Model):
     def __str__(self):
         return f"{self.child} - {self.program}"
 
-
 class Attendance(models.Model):
     STATUS_CHOICES = (
         ("present", "Present"),
@@ -182,6 +181,7 @@ class Lesson(models.Model):
     bible_text = models.CharField(max_length=255, blank=True, null=True)
     memory_verse = models.TextField(blank=True, null=True)
     summary = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.title} - {self.date}"
