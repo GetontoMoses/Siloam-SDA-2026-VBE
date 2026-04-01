@@ -23,4 +23,9 @@ class ChildSerializer(serializers.ModelSerializer):
     class Meta:
         model = Child
         fields = "__all__"
-    
+
+
+class VBSProgramSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VBSProgram
+        fields = "__all__"
