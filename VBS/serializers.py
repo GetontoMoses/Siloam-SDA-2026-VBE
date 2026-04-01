@@ -29,3 +29,9 @@ class VBSProgramSerializer(serializers.ModelSerializer):
     class Meta:
         model = VBSProgram
         fields = "__all__"
+
+
+class AgeGroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AgeGroup
+        fields = "__all__"
