@@ -41,3 +41,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
     child_name = serializers.CharField(source="child.full_name", read_only=True)
     program_title = serializers.CharField(source="program.title", read_only=True)
     group_name = serializers.CharField(source="group.name", read_only=True)
+
+    class Meta:
+        model = Registration
+        fields = "__all__"
