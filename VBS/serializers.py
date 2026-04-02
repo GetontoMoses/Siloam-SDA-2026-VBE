@@ -45,3 +45,14 @@ class RegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Registration
         fields = "__all__"
+
+
+class AttendanceSerializer(serializers.ModelSerializer):
+    child_name = serializers.CharField(
+        source="registration.child.full_name",
+        read_only=True,
+    )
+
+    class Meta:
+        model = Attendance
+        fields = "__all__"
