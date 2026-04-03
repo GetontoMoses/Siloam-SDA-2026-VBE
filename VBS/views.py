@@ -11,3 +11,13 @@ from .models import (
     Lesson,
     Activity,
 )
+from .serializers import (
+    GuardianSerializer,
+    ChildSerializer,
+    VBSProgramSerializer,
+    AgeGroupSerializer,
+    RegistrationSerializer,
+    AttendanceSerializer,
+    LessonSerializer,
+    ActivitySerializer,
+)
