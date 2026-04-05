@@ -27,3 +27,9 @@ class GuardianListCreateView(generics.ListCreateAPIView):
     queryset = Guardian.objects.all().order_by("-created_at")
     serializer_class = GuardianSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+
+class GuardianDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Guardian.objects.all()
+    serializer_class = GuardianSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
