@@ -40,3 +40,9 @@ class ChildListCreateView(generics.ListCreateAPIView):
     queryset = Child.objects.select_related("guardian").all().order_by("-created_at")
     serializer_class = ChildSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+
+class ChildDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Child.objects.select_related("guardian").all()
+    serializer_class = ChildSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
