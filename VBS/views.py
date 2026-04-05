@@ -1,6 +1,7 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
+
 from .models import (
     Guardian,
     Child,
@@ -21,3 +22,8 @@ from .serializers import (
     LessonSerializer,
     ActivitySerializer,
 )
+# Guardian Views
+class GuardianListCreateView(generics.ListCreateAPIView):
+    queryset = Guardian.objects.all().order_by("-created_at")
+    serializer_class = GuardianSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
