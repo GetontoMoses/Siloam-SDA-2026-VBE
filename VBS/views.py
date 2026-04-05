@@ -46,3 +46,10 @@ class ChildDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Child.objects.select_related("guardian").all()
     serializer_class = ChildSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+
+# VBS Program Views
+class VBSProgramListCreateView(generics.ListCreateAPIView):
+    queryset = VBSProgram.objects.all().order_by("-created_at")
+    serializer_class = VBSProgramSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
