@@ -59,3 +59,14 @@ class VBSProgramDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = VBSProgram.objects.all()
     serializer_class = VBSProgramSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+
+# Age Group Views
+class AgeGroupListCreateView(generics.ListCreateAPIView):
+    queryset = (
+        AgeGroup.objects.select_related("program", "teacher", "assistant_teacher")
+        .all()
+        .order_by("-created_at")
+    )
+    serializer_class = AgeGroupSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
