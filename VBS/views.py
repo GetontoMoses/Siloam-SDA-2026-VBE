@@ -53,3 +53,9 @@ class VBSProgramListCreateView(generics.ListCreateAPIView):
     queryset = VBSProgram.objects.all().order_by("-created_at")
     serializer_class = VBSProgramSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+
+class VBSProgramDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = VBSProgram.objects.all()
+    serializer_class = VBSProgramSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
