@@ -78,3 +78,14 @@ class AgeGroupDetailView(generics.RetrieveUpdateDestroyAPIView):
     ).all()
     serializer_class = AgeGroupSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+
+# Registration Views
+class RegistrationListCreateView(generics.ListCreateAPIView):
+    queryset = (
+        Registration.objects.select_related("child", "program", "group")
+        .all()
+        .order_by("-registration_date")
+    )
+    serializer_class = RegistrationSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
