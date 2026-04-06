@@ -70,3 +70,11 @@ class AgeGroupListCreateView(generics.ListCreateAPIView):
     )
     serializer_class = AgeGroupSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+
+class AgeGroupDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = AgeGroup.objects.select_related(
+        "program", "teacher", "assistant_teacher"
+    ).all()
+    serializer_class = AgeGroupSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
