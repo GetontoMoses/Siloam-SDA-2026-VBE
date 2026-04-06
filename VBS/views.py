@@ -89,3 +89,9 @@ class RegistrationListCreateView(generics.ListCreateAPIView):
     )
     serializer_class = RegistrationSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+
+class RegistrationDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Registration.objects.select_related("child", "program", "group").all()
+    serializer_class = RegistrationSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
