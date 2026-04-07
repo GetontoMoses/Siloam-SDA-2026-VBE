@@ -132,3 +132,25 @@ class LessonDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Lesson.objects.select_related("program").all()
     serializer_class = LessonSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    
+# Activity Views
+class ActivityListCreateView(generics.ListCreateAPIView):
+    queryset = (
+        Activity.objects.select_related(
+            "program",
+            "leader",
+        )
+        .all()
+        .order_by("-day", "start_time")
+    )
+    serializer_class = ActivitySerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+
+class ActivityDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Activity.objects.select_related(
+        "program",
+        "leader",
+    ).all()
+    serializer_class = ActivitySerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
