@@ -126,3 +126,9 @@ class LessonListCreateView(generics.ListCreateAPIView):
     queryset = Lesson.objects.select_related("program").all().order_by("-date")
     serializer_class = LessonSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+
+class LessonDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Lesson.objects.select_related("program").all()
+    serializer_class = LessonSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
