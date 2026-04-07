@@ -119,3 +119,10 @@ class AttendanceDetailView(generics.RetrieveUpdateDestroyAPIView):
     ).all()
     serializer_class = AttendanceSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+
+# Lesson Views
+class LessonListCreateView(generics.ListCreateAPIView):
+    queryset = Lesson.objects.select_related("program").all().order_by("-date")
+    serializer_class = LessonSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
