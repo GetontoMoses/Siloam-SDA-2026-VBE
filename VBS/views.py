@@ -95,7 +95,7 @@ class RegistrationDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Registration.objects.select_related("child", "program", "group").all()
     serializer_class = RegistrationSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
-    
+
 # Attendance Views
 class AttendanceListCreateView(generics.ListCreateAPIView):
     queryset = (
@@ -107,5 +107,15 @@ class AttendanceListCreateView(generics.ListCreateAPIView):
         .all()
         .order_by("-date")
     )
+    serializer_class = AttendanceSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+
+class AttendanceDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Attendance.objects.select_related(
+        "registration",
+        "registration__child",
+        "marked_by",
+    ).all()
     serializer_class = AttendanceSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
