@@ -6,6 +6,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+AUTH_USER_MODEL = "Accounts.User"
+
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
