@@ -125,9 +125,13 @@ class Registration(models.Model):
     )
     registration_date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
-    pickup_notes = models.TextField(blank=True, null=True)
-    amount_paid = models.DecimalField(max_digits=8, decimal_places=2, default=0.00)
-    amount_remaining = models.DecimalField(max_digits=8, decimal_places=2, default=0.00)
+    payment_status = models.CharField(
+        max_length=20,
+        choices=[('paid','Paid'),('partial','Partial'),('unpaid','Unpaid')],
+        default='unpaid'
+    )
+    amount_paid = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    total_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     class Meta:
         constraints = [
