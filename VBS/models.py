@@ -216,3 +216,21 @@ class Activity(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.day}"
+
+
+class Teacher(models.Model):
+    ROLE_CHOICES = [
+        ("lead_teacher", "Lead Teacher"),
+        ("assistant_teacher", "Assistant Teacher"),
+        ("support_staff", "Support Staff"),
+        ("volunteer", "Volunteer"),
+    ]
+    full_name = models.CharField(max_length=255)
+    email = models.EmailField(blank=True, null=True)
+    phone_number = models.CharField(max_length=20, blank=True, null=True)
+    role = models.CharField(max_length=30, choices=ROLE_CHOICES, default="volunteer")
+    specialization = models.CharField(max_length=255, blank=True, null=True)
+    is_on_duty = models.BooleanField(default=False)
+    duty_date = models.DateField(blank=True, null=True)
+    bio = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
