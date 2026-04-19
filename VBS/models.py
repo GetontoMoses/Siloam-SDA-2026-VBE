@@ -174,21 +174,6 @@ class Attendance(models.Model):
         return f"{self.registration.child} - {self.date} - {self.status}"
 
 
-class Lesson(models.Model):
-    program = models.ForeignKey(
-        VBSProgram, on_delete=models.CASCADE, related_name="lessons"
-    )
-    title = models.CharField(max_length=255)
-    date = models.DateField()
-    bible_text = models.CharField(max_length=255, blank=True, null=True)
-    memory_verse = models.TextField(blank=True, null=True)
-    summary = models.TextField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.title} - {self.date}"
-
-
 class Activity(models.Model):
     program = models.ForeignKey(
         VBSProgram,
