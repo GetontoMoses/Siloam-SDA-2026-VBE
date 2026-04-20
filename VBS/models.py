@@ -11,7 +11,7 @@ class Guardian(models.Model):
     address = models.TextField(blank=True, null=True)
     emergency_contact_name = models.CharField(max_length=255, blank=True, null=True)
     emergency_contact_phone = models.CharField(max_length=20, blank=True, null=True)
-   
+
     def __str__(self):
         return self.full_name
 
@@ -32,8 +32,7 @@ class Child(models.Model):
     allergies = models.TextField(blank=True, null=True)
     medical_notes = models.TextField(blank=True, null=True)
     special_needs = models.TextField(blank=True, null=True)
-   
-   
+
     @property
     def full_name(self):
         return f"{self.first_name} {self.last_name}"
@@ -98,7 +97,6 @@ class Station(models.Model):
         related_name="led_stations",
     )
     venue = models.CharField(max_length=255, blank=True, null=True)
-    
 
     def clean(self):
         if self.end_time <= self.start_time:
