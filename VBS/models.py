@@ -28,7 +28,7 @@ class Child(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
-    age_group = models.CharField(max_length=255, blank=False, null=False)
+    age_group = models.CharField(max_length=255, blank=False, null=False, default="6-9")
     allergies = models.TextField(blank=True, null=True)
     medical_notes = models.TextField(blank=True, null=True)
     special_needs = models.TextField(blank=True, null=True)
@@ -45,8 +45,10 @@ class Attendance(models.Model):
     STATUS_CHOICES = (
         ("present", "Present"),
         ("absent", "Absent"),
-           )
-
+    )
+    child = models.ForeignKey(
+        Child, on_delete=models.CASCADE, related_name="attendance_records"
+    )
     date = models.DateField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="present")
     check_in_time = models.TimeField(blank=False, null=False)
@@ -62,13 +64,13 @@ class Attendance(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=["registration", "date"],
-                name="unique_attendance_per_registration_date",
+                fields=["child", "date"],
+                name="unique_attendance_per_child_date",
             )
         ]
 
     def __str__(self):
-        return f"{self.registration.child} - {self.date} - {self.status}"
+        return f"{self.child} - {self.date} - {self.status}"
 
 
 class Teacher(models.Model):
